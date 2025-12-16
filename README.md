@@ -38,10 +38,10 @@ When running locally, full OpenAPI documentation and Swagger UI are available:
 
 The application is configured via `application.properties` or environment variables.
 
-| Property                  | Env Variable | Description                                                           | Default |
-|:--------------------------| :--- |:----------------------------------------------------------------------| :--- |
-| `sbomer.api.secret` (WIP) | `SBOMER_API_SECRET` | The shared secret required for upload operations. (To be implemented) | `sbomer-secret-key` |
-| `sbomer.storage.api-url`  | `SBOMER_STORAGE_API_URL` | The public base URL used to construct download links.                 | `http://localhost:8085` |
+| Property                        | Env Variable                    | Description                                                           | Default |
+|:--------------------------------|:--------------------------------|:----------------------------------------------------------------------| :--- |
+| `sbomer.api.secret` (WIP)       | `SBOMER_API_SECRET`             | The shared secret required for upload operations. (To be implemented) | `sbomer-secret-key` |
+| `sbomer.storage.public-api-url` | `SBOMER_STORAGE_PUBLIC_API_URL` | The public base URL used to construct download links.                 | `http://localhost:8085` |
 
 ## Getting Started (Local Development)
 

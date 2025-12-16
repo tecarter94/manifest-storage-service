@@ -21,8 +21,8 @@ public class StorageService implements StorageAdministration {
     @Inject
     ObjectStorage objectStorage;
 
-    // the api url of this service component
-    @ConfigProperty(name = "sbomer.storage.api-url")
+    // the public api url of this service component
+    @ConfigProperty(name = "sbomer.storage.public-api-url")
     String publicApiUrl;
 
     @Override

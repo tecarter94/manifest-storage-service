@@ -15,6 +15,9 @@ image:
 
 # --- APPLICATION CONFIG ---
 config:
+  # The external URL used to generate download links
+  # Default: localhost
+  storagePublicApiUrl: "http://localhost:8085"
   kafka:
     bootstrapServers: "kafka:9092"
     schemaRegistryUrl: "http://schema-registry:8080/apis/registry/v2"
