@@ -37,5 +37,7 @@ podman/kafka-data/
 
 sbomer-local-dev/
 
+sbomer-platform/
+
 target/
 
