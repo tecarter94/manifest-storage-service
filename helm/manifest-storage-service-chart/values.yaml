@@ -15,6 +15,9 @@ image:
 
 # --- APPLICATION CONFIG ---
 config:
+  otel:
+    protocol: grpc
+    endpoint: "" # placeholder
   # The external URL used to generate download links
   # Default: localhost
   storagePublicApiUrl: "http://localhost:8085"

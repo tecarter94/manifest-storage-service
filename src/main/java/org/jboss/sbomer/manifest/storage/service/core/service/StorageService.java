@@ -10,6 +10,8 @@ import org.jboss.sbomer.manifest.storage.service.core.domain.model.SbomFile;
 import org.jboss.sbomer.manifest.storage.service.core.port.api.StorageAdministration;
 import org.jboss.sbomer.manifest.storage.service.core.port.spi.ObjectStorage;
 
+import io.opentelemetry.instrumentation.annotations.SpanAttribute;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
@@ -25,14 +27,16 @@ public class StorageService implements StorageAdministration {
     @ConfigProperty(name = "sbomer.storage.public-api-url")
     String publicApiUrl;
 
+    @WithSpan
     @Override
-    public Map<String, String> storeGenerationSboms(String generationId, List<SbomFile> files) {
+    public Map<String, String> storeGenerationSboms(@SpanAttribute("generation.id") String generationId, List<SbomFile> files) {
         // generationId is the prefix
         return uploadBatch(generationId, files);
     }
 
+    @WithSpan
     @Override
-    public Map<String, String> storeEnhancementSboms(String generationId, String enhancementId, List<SbomFile> files) {
+    public Map<String, String> storeEnhancementSboms(@SpanAttribute("generation.id") String generationId, @SpanAttribute("enhancement.id") String enhancementId, List<SbomFile> files) {
         // generationId/enhancementId is the prefix
         String prefix = String.format("%s/%s", generationId, enhancementId);
         return uploadBatch(prefix, files);
