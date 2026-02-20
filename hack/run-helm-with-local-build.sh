@@ -131,6 +131,8 @@ helm upgrade --install sbomer-release "./$PLATFORM_DIR" \
     --set global.includeKafka=true \
     --set global.includeApicurio=true \
     --set global.includeApiGateway=true \
+    --set global.includeS3=true \
+    --set global.includeOtelLgtm=true \
     --set manifest-storage-service-chart.image.repository=localhost/manifest-storage-service \
     --set manifest-storage-service-chart.image.tag=latest \
     --set manifest-storage-service-chart.image.pullPolicy=Never

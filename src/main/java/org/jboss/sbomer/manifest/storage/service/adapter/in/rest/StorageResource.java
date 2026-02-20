@@ -1,6 +1,7 @@
 package org.jboss.sbomer.manifest.storage.service.adapter.in.rest;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,6 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.jboss.resteasy.reactive.RestForm;
 import org.jboss.resteasy.reactive.multipart.FileUpload;
 import org.jboss.sbomer.manifest.storage.service.adapter.in.rest.dto.MultipartUploadDTO;
-import org.jboss.sbomer.manifest.storage.service.adapter.out.exception.StorageException;
 import org.jboss.sbomer.manifest.storage.service.core.domain.model.SbomFile;
 import org.jboss.sbomer.manifest.storage.service.core.port.api.StorageAdministration;
 
@@ -89,16 +89,11 @@ public class StorageResource {
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     @Operation(summary = "Download File", description = "Streams the content of a stored file based on its storage key path.")
     public Response download(@PathParam("path") String path) {
-        try {
-            java.io.InputStream stream = storageService.getFileContent(path);
-            String filename = path.substring(path.lastIndexOf('/') + 1);
-            return Response.ok(stream)
-                    .header("Content-Disposition", "attachment; filename=\"" + filename + "\"")
-                    .build();
-        } catch (StorageException e) {
-            log.error("Download failed for file {}", path, e);
-            return Response.status(e.getStatus()).build();
-        }
+        InputStream stream = storageService.getFileContent(path);
+        String filename = path.substring(path.lastIndexOf('/') + 1);
+        return Response.ok(stream)
+                .header("Content-Disposition", "attachment; filename=\"" + filename + "\"")
+                .build();
     }
 
     @FunctionalInterface
@@ -122,7 +117,7 @@ public class StorageResource {
             }
             return Response.ok(action.execute(domainFiles)).build();
         } catch (IOException e) {
-            return Response.serverError().entity("File processing error").build();
+            throw new RuntimeException("File processing error", e);
         }
     }
 }
